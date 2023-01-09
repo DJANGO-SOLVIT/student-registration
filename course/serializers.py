@@ -1,8 +1,18 @@
 from rest_framework import serializers
-from course.models import CourseStudents, Course
+from course.models import CourseStudents, Course,Attendance
 from django.utils import timezone
 
-
+class AttendanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Attendance
+        fields='__all__'
+    def validate(self, attrs):
+        student=attrs['student']
+        course=attrs['course']
+        date=attrs['attended_on']
+        if Attendance.objects.filter(student=student,course=course,attended_on=date).exists():
+            raise serializers.ValidationError({"attendance_error":"Twamaze kruikodinga"})
+        return super().validate(attrs)
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course

@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import viewsets
 from students.serializers import StudentSerializer
 from students.models import Student
-from course.serializers import CourseSerializer
-from course.models import Course
+from course.serializers import CourseSerializer,AttendanceSerializer
+from course.models import Course,Attendance
 # Create your views here.
 
 
@@ -21,6 +22,13 @@ class StudentAPI(APIView):
         return Response(serializer.data, status=201)
 
 
+class StudentViewset(viewsets.ModelViewSet):
+    serializer_class = StudentSerializer
+    queryset = Student.objects.all()
+
+class AttendanceViewSet(viewsets.ModelViewSet):
+    serializer_class=AttendanceSerializer
+    queryset=Attendance.objects.all()
 class CourseAPI(APIView):
     def get(self, request):
         query = Course.objects.all()

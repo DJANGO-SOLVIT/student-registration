@@ -20,3 +20,22 @@ class CourseStudents(models.Model):
 
     def __str__(self):
         return self.course.course_name
+
+
+class Attendance(models.Model):
+    ABSENT = "A"
+    PRESENT = "P"
+    PERMISSION = "PM"
+    ATTENDANCE_STATUS = (
+        (ABSENT, "Yasibye"),
+        (PRESENT, "Yitabiriye"),
+        (PERMISSION, "Afite uruhushya"),
+
+    )
+    course = models.ForeignKey(
+        Course, related_name='attendances', on_delete=models.CASCADE)
+    student = models.ForeignKey(
+        Student, related_name='student_attendance', on_delete=models.CASCADE)
+    attendance_status=models.CharField(choices=ATTENDANCE_STATUS,max_length=2,default=PERMISSION)
+    attended_on = models.DateField()
+    recorded_on = models.DateTimeField(auto_now_add=True)
