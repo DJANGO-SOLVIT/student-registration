@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from students.serializers import StudentSerializer
 from students.models import Student
 from course.serializers import CourseSerializer,AttendanceSerializer
@@ -27,12 +28,19 @@ class StudentAPI(APIView):
 class StudentViewset(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
     queryset = Student.objects.all()
+    permission_classes=[IsAuthenticated]
 
 class AttendanceViewSet(viewsets.ModelViewSet):
     serializer_class=AttendanceSerializer
     queryset=Attendance.objects.all()
 class CourseAPI(APIView):
+    permission_classes=[IsAuthenticated]
     def get(self, request):
+        print()
+        print()
+        print(request.user.username)
+        print()
+        print()
         query = Course.objects.all()
         serializer = CourseSerializer(query, many=True)
         return Response(serializer.data, status=200)

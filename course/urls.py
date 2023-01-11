@@ -6,5 +6,5 @@ router=DefaultRouter()
 router.register('students',StudentViewset)
 router.register('attendance',AttendanceViewSet)
 urlpatterns = [
-    # path('',CourseAPI.as_view(),name='course'),
+    path('',CourseAPI.as_view(),name='course'),
 ]+router.urls
