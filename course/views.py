@@ -10,10 +10,11 @@ from course.models import Course,Attendance
 
 
 class StudentAPI(APIView):
+    # Retrieve
     def get(self, request):
-        query = Student.objects.all()
-        serializer = StudentSerializer(query, many=True)
-        return Response(serializer.data, status=200)
+        # query = Student.objects.all()
+        # serializer = StudentSerializer(query, many=True)
+        return Response({"name":"Lisa"}, status=200)
 
     def post(self, request):
         serializer = StudentSerializer(data=request.data)
@@ -22,6 +23,7 @@ class StudentAPI(APIView):
         return Response(serializer.data, status=201)
 
 
+# CRUD
 class StudentViewset(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
     queryset = Student.objects.all()
