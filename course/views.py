@@ -36,11 +36,6 @@ class AttendanceViewSet(viewsets.ModelViewSet):
 class CourseAPI(APIView):
     permission_classes=[IsAuthenticated]
     def get(self, request):
-        print()
-        print()
-        print(request.user.username)
-        print()
-        print()
         query = Course.objects.all()
         serializer = CourseSerializer(query, many=True)
         return Response(serializer.data, status=200)
