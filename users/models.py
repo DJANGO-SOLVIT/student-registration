@@ -24,6 +24,7 @@ class User(AbstractBaseUser):
     last_name = models.CharField(max_length=50)
     active = models.BooleanField(default=False)
     staff=models.BooleanField(default=False)
+    is_teacher=models.BooleanField(default=False)
     REQUIRED_FIELDS = []
     USERNAME_FIELD = 'phone_number'
     objects = UserManager()

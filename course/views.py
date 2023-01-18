@@ -7,6 +7,7 @@ from students.serializers import StudentSerializer
 from students.models import Student
 from course.serializers import CourseSerializer,AttendanceSerializer
 from course.models import Course,Attendance
+from course.impushya import IsTeacher
 # Create your views here.
 
 
@@ -28,7 +29,7 @@ class StudentAPI(APIView):
 class StudentViewset(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
     queryset = Student.objects.all()
-    permission_classes=[IsAuthenticated]
+    permission_classes=[IsAuthenticated,IsTeacher]
 
 class AttendanceViewSet(viewsets.ModelViewSet):
     serializer_class=AttendanceSerializer
